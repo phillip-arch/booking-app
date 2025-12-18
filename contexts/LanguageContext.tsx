@@ -1,10 +1,5 @@
-import React, {
-  createContext,
-  useState,
-  useContext,
-  ReactNode,
-  useEffect,
-} from 'react';
+// contexts/LanguageContext.tsx
+import React, { createContext, useEffect, useMemo, useState, useContext, ReactNode } from 'react';
 import { translations, LanguageCode } from '../translations';
 
 interface LanguageContextType {
@@ -13,58 +8,58 @@ interface LanguageContextType {
   t: (key: string, params?: Record<string, string | number>) => string;
 }
 
-const LanguageContext = createContext<LanguageContextType | undefined>(
-  undefined
-);
-
 const STORAGE_KEY = 'app_language';
 
-export const LanguageProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+const isLanguageCode = (val: string): val is LanguageCode => {
+  return Object.prototype.hasOwnProperty.call(translations, val);
+};
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<LanguageCode>('en');
 
-  // Load language from localStorage on first mount
+  // Load saved language once on mount
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const stored = localStorage.getItem(STORAGE_KEY) as LanguageCode | null;
-    if (stored && translations[stored]) {
-      setLanguageState(stored);
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved && isLanguageCode(saved)) {
+        setLanguageState(saved);
+      }
+    } catch {
+      // ignore (SSR / privacy mode)
     }
   }, []);
 
-  // Save language to localStorage when it changes
+  // Persist whenever it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, language);
+      // Optional: keep <html lang=".."> in sync
+      if (typeof document !== 'undefined') {
+        document.documentElement.lang = language;
+      }
+    } catch {
+      // ignore
+    }
+  }, [language]);
+
   const setLanguage = (lang: LanguageCode) => {
     setLanguageState(lang);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(STORAGE_KEY, lang);
-    }
   };
 
-  const t = (
-    key: string,
-    params?: Record<string, string | number>
-  ): string => {
-    // 1️⃣ Try selected language
-    // 2️⃣ Fallback to English
-    // 3️⃣ Fallback to key itself
-    let text =
-      translations[language]?.[key] ??
-      translations.en?.[key] ??
-      key;
+  const t = useMemo(() => {
+    return (key: string, params?: Record<string, string | number>): string => {
+      let text = translations[language]?.[key] ?? translations.en?.[key] ?? key;
 
-    if (params) {
-      Object.entries(params).forEach(([paramKey, value]) => {
-        text = text.replace(
-          new RegExp(`{${paramKey}}`, 'g'),
-          String(value)
-        );
-      });
-    }
-
-    return text;
-  };
+      if (params) {
+        for (const [k, v] of Object.entries(params)) {
+          text = text.replace(new RegExp(`{${k}}`, 'g'), String(v));
+        }
+      }
+      return text;
+    };
+  }, [language]);
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>
@@ -73,10 +68,8 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({
   );
 };
 
-export const useLanguage = (): LanguageContextType => {
+export const useLanguage = () => {
   const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
-  }
+  if (!context) throw new Error('useLanguage must be used within a LanguageProvider');
   return context;
 };
