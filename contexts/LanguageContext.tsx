@@ -1,5 +1,10 @@
-
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from 'react';
 import { translations, LanguageCode } from '../translations';
 
 interface LanguageContextType {
@@ -8,20 +13,53 @@ interface LanguageContextType {
   t: (key: string, params?: Record<string, string | number>) => string;
 }
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+const LanguageContext = createContext<LanguageContextType | undefined>(
+  undefined
+);
 
-export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<LanguageCode>('en');
+const STORAGE_KEY = 'app_language';
 
-  const t = (key: string, params?: Record<string, string | number>): string => {
-    // Safely try to get the translation for the current language
-    // If language dict is missing or key is missing, fallback to English
-    // If English is missing (unlikely), fallback to key
-    let text = translations[language]?.[key] || translations['en']?.[key] || key;
+export const LanguageProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
+  const [language, setLanguageState] = useState<LanguageCode>('en');
+
+  // Load language from localStorage on first mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const stored = localStorage.getItem(STORAGE_KEY) as LanguageCode | null;
+    if (stored && translations[stored]) {
+      setLanguageState(stored);
+    }
+  }, []);
+
+  // Save language to localStorage when it changes
+  const setLanguage = (lang: LanguageCode) => {
+    setLanguageState(lang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(STORAGE_KEY, lang);
+    }
+  };
+
+  const t = (
+    key: string,
+    params?: Record<string, string | number>
+  ): string => {
+    // 1️⃣ Try selected language
+    // 2️⃣ Fallback to English
+    // 3️⃣ Fallback to key itself
+    let text =
+      translations[language]?.[key] ??
+      translations.en?.[key] ??
+      key;
 
     if (params) {
-      Object.entries(params).forEach(([k, v]) => {
-        text = text.replace(new RegExp(`{${k}}`, 'g'), String(v));
+      Object.entries(params).forEach(([paramKey, value]) => {
+        text = text.replace(
+          new RegExp(`{${paramKey}}`, 'g'),
+          String(value)
+        );
       });
     }
 
@@ -35,7 +73,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   );
 };
 
-export const useLanguage = () => {
+export const useLanguage = (): LanguageContextType => {
   const context = useContext(LanguageContext);
   if (!context) {
     throw new Error('useLanguage must be used within a LanguageProvider');
