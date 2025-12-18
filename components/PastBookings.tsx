@@ -780,10 +780,10 @@ export const PastBookings: React.FC<PastBookingsProps> = ({ isOpen, onClose, onM
                       <i className="fa-solid fa-circle-info"></i> {t('policy.title')}
                     </h3>
                     <ul className="text-xs text-blue-800 space-y-1 list-disc list-inside">
-                      <li>Free cancellation up to 24 hours before scheduled pickup.</li>
-                      <li>Cancellations within 24 hours incur a 50% fee.</li>
-                      <li>No-shows are non-refundable.</li>
-                      <li>Refunds are processed automatically to the original payment method within 5-7 business days.</li>
+                      <li>{t('policy.freeCancellation')}</li>
+                      <li>{t('policy.within24hFee')}</li>
+                      <li>{t('policy.noShows')}</li>
+                      <li>{t('policy.refundProcess')}</li>
                     </ul>
                   </div>
                 </>
