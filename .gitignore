@@ -25,3 +25,10 @@ dist-ssr
 # Environment variables (IMPORTANT)
 .env
 .env.*
+
+# Supabase local files
+supabase/.temp/
+supabase/.branches/
+supabase/.config/
+supabase/.env
+supabase/seed.sql
