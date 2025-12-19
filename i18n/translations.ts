@@ -13,16 +13,16 @@ export type LanguageCode =
   | 'ru';
 
 export const LANGUAGES: { code: LanguageCode; name: string; flag: string }[] = [
+  { code: 'de', name: 'Deutsch', flag: '🇦🇹' }, // Austria flag (as you requested)
   { code: 'en', name: 'English', flag: '🇬🇧' },
-  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+  { code: 'sr', name: 'Srpski', flag: '🇷🇸' }, // Serbian Latin
   { code: 'hr', name: 'Hrvatski', flag: '🇭🇷' },
-  { code: 'sr', name: 'Srpski (latinica)', flag: '🇷🇸' }, // Serbian Latin
   { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
   { code: 'uk', name: 'Українська', flag: '🇺🇦' },
-  { code: 'hu', name: 'Magyar', flag: '🇭🇺' },
   { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+  { code: 'fr', name: 'Français', flag: '🇫🇷' },
+  { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+  { code: 'hu', name: 'Magyar', flag: '🇭🇺' },
 ];
 
 const en: Record<string, string> = {
@@ -225,6 +225,31 @@ const en: Record<string, string> = {
   'toast.bookingCancelled': 'Booking cancelled successfully',
   'toast.redirectModify': 'Redirecting to booking form...',
 
+  // Logged-out state
+  'history.loginTitle': 'Log in to see your bookings',
+  'history.loginDesc': 'Sign in to view, modify, or cancel your rides.',
+  
+  // PastBookings search
+'history.search': 'Search bookings',
+'btn.clear': 'Clear',
+
+// Reminder toggle (PastBookings)
+'reminder.active': 'Reminder active',
+'reminder.set': 'Set reminder',
+'reminder.on': 'On',
+'reminder.off': 'Set',
+
+// Generic errors/messages used in PastBookings
+'err.loadBookings': 'Failed to load bookings',
+'err.saveProfile': 'Failed to save profile',
+'err.updateReminder': 'Error updating reminder',
+'err.saveRating': 'Error saving rating',
+'err.saveReview': 'Error saving review',
+'err.ratingRequired': 'Please select a star rating first.',
+'err.cancelBooking': 'Failed to cancel booking',
+'err.deleteAccount': 'Failed to delete account. Please re-login and try again.',
+'msg.accountDeleted': 'Your account has been deleted.',
+  
   // Auth
   'auth.login': 'Sign In',
   'auth.register': 'Create Account',
@@ -280,8 +305,7 @@ const en: Record<string, string> = {
   'admin.table.status': 'Status',
   'admin.table.actions': 'Actions',
   'admin.clearFilter': 'Clear Filter',
-  'admin.clickToFilter':
-    'Click on a driver to filter the rides list below.',
+  'admin.clickToFilter': 'Click on a driver to filter the rides list below.',
   'admin.closeForm': 'Close Form',
   'admin.clientMgmt': 'Company Management',
   'admin.isCorporate': 'Corporate Account',
@@ -308,13 +332,15 @@ const en: Record<string, string> = {
   'chat.error': "I'm having trouble processing that request right now.",
 };
 
-// --- German (your existing)
+// ✅ German (Deutsch – full overrides)
 const de: Record<string, string> = {
   ...en,
+
+  // Nav & General
   'nav.locations': 'Standorte',
-  'nav.fleet': 'Flotte',
+  'nav.fleet': 'Fahrzeugflotte',
   'nav.myBookings': 'Meine Buchungen',
-  'nav.admin': 'Admin',
+  'nav.admin': 'Admin-Bereich',
   'nav.signIn': 'Anmelden',
   'nav.signOut': 'Abmelden',
   'hero.title': 'Premium Transfers',
@@ -324,9 +350,279 @@ const de: Record<string, string> = {
   'features.punctual': 'Immer pünktlich',
   'features.punctualDesc': 'Flugüberwachung inklusive.',
   'features.fixed': 'Fixpreise',
-  'features.fixedDesc': 'Keine versteckten Gebühren oder Aufschläge.',
+  'features.fixedDesc': 'Keine versteckten Kosten oder Zuschläge.',
   'features.secure': 'Sicher & zuverlässig',
   'features.secureDesc': 'Geprüfte Fahrer & versicherte Fahrten.',
+
+  // App Specific
+  'app.reminder': 'Erinnerung an Ihre bevorstehende Fahrt:',
+  'app.viewDetails': 'Details anzeigen',
+  'app.whyChoose': 'Warum VIERide?',
+  'app.whyChooseDesc': 'Erleben Sie den Unterschied eines professionellen Chauffeurservices.',
+  'app.bookingConfirmed': 'Buchung bestätigt!',
+  'app.bookingUpdated': 'Buchung aktualisiert!',
+  'app.thankYou': 'Vielen Dank, {name}.',
+  'app.scheduled': 'Ihre Fahrt wurde geplant.',
+  'app.emailSent': 'Wir haben eine Bestätigungs-E-Mail an {email} gesendet.',
+  'app.route': 'Route',
+  'app.price': 'Preis',
+  'app.bookAnother': 'Weitere Fahrt buchen',
+  'app.viewHistory': 'Buchungshistorie anzeigen',
+
+  // Footer
+  'footer.desc':
+    'Ihre erste Wahl für Flughafentransfers in Wien und im Umkreis von 100 km. Wir verbinden Österreich, die Slowakei, Ungarn und Tschechien.',
+  'footer.contact': 'Kontakt',
+  'footer.legal': 'Rechtliches',
+  'footer.privacy': 'Datenschutzerklärung',
+  'footer.terms': 'Nutzungsbedingungen',
+  'footer.impressum': 'Impressum',
+  'footer.rights': 'Alle Rechte vorbehalten.',
+  'footer.companyName': 'VIERide Flughafentransfers',
+
+  // Booking Widget
+  'step.1': 'Fahrtdetails',
+  'step.2': 'Fahrzeug auswählen',
+  'step.3': 'Bezahlung',
+  'btn.fromAirport': 'Vom Flughafen',
+  'btn.toAirport': 'Zum Flughafen',
+  'label.pickup': 'Abholung',
+  'label.dropoff': 'Ziel',
+  'label.address': 'Adresse',
+  'label.destinationAddress': 'Zieladresse',
+  'label.date': 'Datum',
+  'label.time': 'Uhrzeit',
+  'label.landingTime': 'Landezeit',
+  'label.pickupTime': 'Abholzeit',
+  'label.flight': 'Flugnummer',
+  'label.passengers': 'Passagiere',
+  'label.suitcases': 'Koffer',
+  'label.handLuggage': 'Handgepäck',
+  'placeholder.flight': 'z. B. OS 123',
+  'placeholder.address': 'Genaue Adresse',
+  'btn.seePrices': 'Preise & Fahrzeuge anzeigen',
+  'btn.back': 'Zurück',
+  'btn.continue': 'Weiter zur Bezahlung',
+  'btn.confirm': 'Buchung bestätigen',
+  'btn.update': 'Buchung aktualisieren',
+  'msg.modifying': 'Sie bearbeiten eine bestehende Buchung.',
+  'msg.selectDetails':
+    'Bitte wählen Sie Anzahl der Passagiere und Gepäckstücke, um den Preis zu berechnen.',
+  'info.distance': 'Fahrstrecke',
+  'label.name': 'Vollständiger Name',
+  'label.email': 'E-Mail',
+  'label.phone': 'Telefonnummer',
+  'summary.title': 'Buchungsübersicht',
+  'summary.total': 'Gesamtpreis',
+  'summary.route': 'Route:',
+  'summary.vehicle': 'Fahrzeug:',
+  'summary.requirements': 'Anforderungen:',
+  'summary.luggage': 'Gepäck:',
+  'summary.childSeats': 'Kindersitze:',
+  'summary.payment': 'Bezahlung:',
+  'tip.title': 'Gut zu wissen',
+  'widget.allocatedRide': 'Ihr zugewiesenes Fahrzeug',
+  'widget.capacityInfo':
+    'Dieses Fahrzeug passt für {pax} Passagiere und {bag} Koffer.',
+  'widget.fixedPrice': 'Fixpreis',
+  'widget.allInclusive': 'Alles inklusive',
+  'widget.largeGroup': 'Größere Gruppe?',
+  'widget.largeGroupDesc':
+    'Ihre Anforderungen überschreiten die Kapazität unserer Standardflotte. Bitte kontaktieren Sie uns für ein individuelles Angebot für größere Gruppen oder Busse.',
+  'widget.callSupport': 'Support anrufen',
+  'widget.recommended': 'Empfohlen',
+  'widget.tooSmall': 'Zu klein',
+  'widget.max': 'Max.',
+  'err.selectDate': 'Bitte wählen Sie Datum und Uhrzeit.',
+  'err.invalidDate': 'Ungültiges Datum oder Uhrzeit.',
+  'err.pastDate': 'Bitte wählen Sie eine zukünftige Zeit.',
+  'err.leadTimeDay':
+    'Für Fahrten zwischen 07:00 und 22:00 Uhr bitte mindestens 2 Stunden im Voraus buchen.',
+  'err.leadTimeNight':
+    'Für Nachtfahrten (22:00 – 07:00 Uhr) bitte mindestens 8 Stunden im Voraus buchen.',
+  'err.invalidEmail': 'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
+  'err.invalidPhone': 'Bitte geben Sie eine gültige Telefonnummer ein (z. B. +43 123 45678).',
+  'err.flightRequired': 'Die Flugnummer ist erforderlich.',
+
+  // Vehicles
+  'vehicle.sedan': 'Standard-Limousine',
+  'vehicle.wagon': 'Kombi',
+  'vehicle.van': 'Minivan',
+
+  // New Fields
+  'label.travelWithChildren': 'Reisen Sie mit Kindern?',
+  'label.babySeat': 'Babyschale (0–13 kg)',
+  'label.childSeat': 'Kindersitz (9–18 kg)',
+  'label.boosterSeat': 'Sitzerhöhung (15–36 kg)',
+  'label.paymentMethod': 'Zahlungsmethode',
+  'payment.cash': 'Barzahlung beim Fahrer',
+  'payment.card': 'Kreditkarte',
+  'payment.invoice': 'Monatliche Rechnung',
+  'label.bookingForMyself': 'Ich buche für mich selbst',
+  'label.useHome': 'Privat',
+  'label.useBusiness': 'Geschäftlich',
+  'label.homeAddress': 'Privatadresse',
+  'label.businessAddress': 'Geschäftsadresse',
+  'btn.saveProfile': 'Profil speichern',
+  'label.discountApplied': '{percent}% Rabatt angewendet',
+
+  // Tips
+  'tip.airportPickup':
+    'Abholung am Flughafen: Ihr Fahrer wartet in der Ankunftshalle direkt beim Ausgang mit einem Namensschild.',
+  'tip.beReady':
+    'Bitte pünktlich sein: Eine kurze Wartezeit ist möglich, bitte seien Sie jedoch rechtzeitig bereit.',
+  'tip.payment':
+    'Bezahlung: Sie bezahlen direkt beim Fahrer im Fahrzeug – bar oder per Kreditkarte nach der Fahrt.',
+  'tip.safety':
+    'Sicherheit: Bitte keine privaten Absprachen mit dem Fahrer. Nur Buchungen über App/Website sind versichert.',
+  'tip.flightMonitoring':
+    'Flugverspätungen: Wir überwachen Ihren Flug und passen die Abholzeit automatisch ohne Aufpreis an.',
+  'tip.cancellation':
+    'Stornierung: Kostenlos bis 24 Stunden vor Abholung. Innerhalb von 24 Stunden werden 50 % verrechnet.',
+  'tip.createAccount':
+    'Tipp: Erstellen Sie ein Konto und speichern Sie Ihre Daten, damit die nächste Buchung in Sekunden erledigt ist.',
+  'tip.saveAddress':
+    'Sie können Ihre Privat- oder Geschäftsadresse speichern und schnell auswählen.',
+
+  // History
+  'history.title': 'Meine Buchungen',
+  'history.welcome': 'Willkommen',
+  'history.empty': 'Keine Buchungen gefunden.',
+  'history.bookNow': 'Fahrt buchen',
+  'history.tab.bookings': 'Buchungshistorie',
+  'history.tab.profile': 'Kontoeinstellungen',
+  'profile.info': 'Profilinformationen',
+  'profile.savedAddresses': 'Gespeicherte Adressen',
+  'profile.accountActions': 'Kontoaktionen',
+  'profile.loading': 'Buchungen werden geladen …',
+  'profile.noBookingsSub': 'Ihre Fahrten werden hier angezeigt.',
+  'detail.paymentContact': 'Bezahlung & Kontakt',
+  'detail.payment': 'Bezahlung:',
+  'detail.extras': 'Extras',
+  'detail.luggage': 'Gepäck',
+  'detail.bookedOn': 'Gebucht:',
+  'btn.cancel': 'Buchung stornieren',
+  'btn.modify': 'Buchung ändern',
+  'btn.addToCalendar': 'Zum Kalender hinzufügen',
+  'btn.deleteAccount': 'Konto löschen',
+  'status.cancelled': 'Storniert',
+  'policy.title': 'Stornierungsbedingungen',
+  'policy.freeCancellation': 'Kostenlose Stornierung bis 24 Stunden vor der geplanten Abholung.',
+  'policy.within24hFee': 'Stornierungen innerhalb von 24 Stunden werden mit 50 % verrechnet.',
+  'policy.noShows': 'Nicht-Erscheinen ist nicht erstattungsfähig.',
+  'policy.refundProcess':
+    'Rückerstattungen werden automatisch auf die ursprüngliche Zahlungsmethode innerhalb von 5–7 Werktagen durchgeführt.',
+  'label.rateDriver': 'Fahrer bewerten',
+  'label.rating': 'Bewertung',
+  'label.writeReview': 'Bewertung schreiben',
+  'btn.submitReview': 'Bewertung senden',
+  'placeholder.review': 'Wie war Ihre Fahrt?',
+  'confirm.cancelRide': 'Möchten Sie Ihre Fahrt nach {dest} wirklich stornieren?',
+  'confirm.cancelNote':
+    'Hinweis: Kostenlose Stornierung ist bis 24 Stunden vor Abholung möglich.',
+  'confirm.modifyRide': 'Sie sind dabei, Ihre Buchung zu ändern.',
+  'confirm.modifyNote':
+    'Hinweis: Sie werden zum Buchungsformular weitergeleitet. Es gelten die aktuellen Preise.',
+  'confirm.deleteAccount':
+    'Möchten Sie Ihr Konto wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.',
+  'confirm.deleteNote':
+    'Warnung: Alle personenbezogenen Daten werden entfernt. Frühere Buchungen können entkoppelt werden.',
+  'toast.reminderSet': 'Erinnerung wurde gesetzt.',
+  'toast.reminderRemoved': 'Erinnerung wurde entfernt.',
+  'toast.profileSaved': 'Profil erfolgreich gespeichert!',
+  'toast.ratingSubmitted': 'Bewertung gesendet!',
+  'toast.reviewSaved': 'Bewertung gespeichert!',
+  'toast.bookingCancelled': 'Buchung erfolgreich storniert',
+  'toast.redirectModify': 'Weiterleitung zum Buchungsformular …',
+
+ // Logged-out state
+  'history.loginTitle': 'Melden Sie sich an, um Ihre Buchungen zu sehen',
+  'history.loginDesc':
+    'Melden Sie sich an, um Ihre Fahrten anzusehen, zu ändern oder zu stornieren.',
+  
+  
+  
+    // Auth
+  'auth.login': 'Anmelden',
+  'auth.register': 'Konto erstellen',
+  'auth.forgot': 'Passwort zurücksetzen',
+  'auth.noAccount': 'Noch kein Konto?',
+  'auth.hasAccount': 'Bereits ein Konto?',
+  'auth.sendLink': 'Link senden',
+  'auth.password': 'Passwort',
+  'auth.changePassword': 'Passwort ändern',
+  'auth.currentPassword': 'Aktuelles Passwort',
+  'auth.newPassword': 'Neues Passwort',
+  'auth.confirmPassword': 'Neues Passwort bestätigen',
+  'auth.passwordTooShort': 'Das Passwort muss mindestens 6 Zeichen lang sein.',
+  'auth.passwordsNoMatch': 'Die Passwörter stimmen nicht überein.',
+  'auth.passwordSame': 'Das neue Passwort darf nicht dem aktuellen entsprechen.',
+  'auth.incorrectPassword': 'Aktuelles Passwort ist falsch.',
+  'auth.errorChangePassword': 'Passwort konnte nicht geändert werden. Bitte erneut versuchen.',
+  'auth.passwordChanged': 'Passwort erfolgreich geändert!',
+  'auth.savePassword': 'Passwort speichern',
+  'auth.saved': 'Gespeichert',
+  'auth.backSignIn': 'Zurück zur Anmeldung',
+  'auth.sentLink':
+    'Falls ein Konto existiert, wurde ein Link zum Zurücksetzen an Ihre E-Mail gesendet.',
+  'auth.joinCode': 'Firmen-Zugangscode (optional)',
+  'auth.joinCodePlaceholder': 'z. B. TECH2025',
+
+  // Admin
+  'admin.tab.bookings': 'Disposition',
+  'admin.tab.drivers': 'Fahrer',
+  'admin.tab.analytics': 'Analysen',
+  'admin.tab.clients': 'Firmen',
+  'admin.tab.users': 'Benutzer',
+  'admin.totalRevenue': 'Gesamtumsatz',
+  'admin.totalRides': 'Gesamtfahrten',
+  'admin.addDriver': 'Fahrer hinzufügen',
+  'admin.assignDriver': 'Fahrer zuweisen',
+  'admin.unassigned': 'Nicht zugewiesen',
+  'admin.avgRating': 'Ø Bewertung',
+  'admin.fleet': 'Flottenverwaltung',
+  'admin.selectPeriod': 'Zeitraum wählen',
+  'admin.startDate': 'Startdatum',
+  'admin.endDate': 'Enddatum',
+  'admin.ordersPerDay': 'Fahrten pro Tag',
+  'admin.driverPerf': 'Fahrerleistung',
+  'admin.ridesFor': 'Fahrten für',
+  'admin.allRides': 'Alle Fahrten im Zeitraum',
+  'admin.noRides': 'Keine Fahrten für dieses Datum geplant.',
+  'admin.noRidesCriteria': 'Keine Fahrten für diese Kriterien gefunden.',
+  'admin.table.timeId': 'Zeit / ID',
+  'admin.table.route': 'Route (genaue Adresse)',
+  'admin.table.customer': 'Kunde',
+  'admin.table.reqPrice': 'Anforderungen / Preis',
+  'admin.table.driver': 'Fahrer',
+  'admin.table.status': 'Status',
+  'admin.table.actions': 'Aktionen',
+  'admin.clearFilter': 'Filter löschen',
+  'admin.clickToFilter': 'Klicken Sie auf einen Fahrer, um die Liste unten zu filtern.',
+  'admin.closeForm': 'Formular schließen',
+  'admin.clientMgmt': 'Firmenverwaltung',
+  'admin.isCorporate': 'Firmenkonto',
+  'admin.companyName': 'Firmenname',
+  'admin.companyDomain': 'E-Mail-Domain (@)',
+  'admin.joinCode': 'Zugangscode',
+  'admin.refreshCode': 'Aktualisieren',
+  'admin.discount': 'Rabatt %',
+  'admin.editUser': 'Benutzer bearbeiten',
+  'admin.userSearch': 'Benutzer suchen',
+  'admin.filterByCompany': 'Nach Firma filtern',
+  'admin.viewBookings': 'Buchungen ansehen',
+  'admin.addCompany': 'Firma hinzufügen',
+  'admin.domainPlaceholder': 'z. B. google.com',
+
+  // Chat
+  'chat.title': 'Transfer-Assistent',
+  'chat.subtitle': 'Powered by Gemini AI',
+  'chat.placeholder': 'Frage stellen …',
+  'chat.welcome':
+    'Hallo! Ich bin Ihr Transfer-Assistent für den Flughafen Wien. Fragen Sie mich zu Fahrzeiten, lokalen Tipps oder unseren Services.',
+  'chat.offline':
+    'Ich bin derzeit offline. Bitte Verbindung prüfen oder später erneut versuchen.',
+  'chat.error': 'Ich kann diese Anfrage gerade nicht verarbeiten.',
 };
 
 // --- French / Italian / Croatian / Turkish / Ukrainian / Hungarian / Russian
@@ -340,12 +636,14 @@ const ru: Record<string, string> = { ...en };
 
 /**
  * Serbian (Latin) — FULL set of overrides.
- * We start from English so any missing key still shows in English.
+ * Starts from English so any missing key falls back to English.
  */
 const sr: Record<string, string> = {
   ...en,
 
+  // =======================
   // Nav & General
+  // =======================
   'nav.locations': 'Lokacije',
   'nav.fleet': 'Flota',
   'nav.myBookings': 'Moje rezervacije',
@@ -363,7 +661,9 @@ const sr: Record<string, string> = {
   'features.secure': 'Bezbedno i pouzdano',
   'features.secureDesc': 'Provereni vozači i osigurane vožnje.',
 
+  // =======================
   // App Specific
+  // =======================
   'app.reminder': 'Podsetnik za predstojeću vožnju:',
   'app.viewDetails': 'Pogledaj detalje',
   'app.whyChoose': 'Zašto VIERide?',
@@ -378,7 +678,9 @@ const sr: Record<string, string> = {
   'app.bookAnother': 'Rezerviši novu vožnju',
   'app.viewHistory': 'Pogledaj istoriju',
 
+  // =======================
   // Footer
+  // =======================
   'footer.desc':
     'Premium izbor za aerodromske transfere u Beču i okolini (100 km). Povezujemo Austriju, Slovačku, Mađarsku i Češku.',
   'footer.contact': 'Kontakt',
@@ -389,7 +691,9 @@ const sr: Record<string, string> = {
   'footer.rights': 'Sva prava zadržana.',
   'footer.companyName': 'VIERide Aerodromski transferi',
 
+  // =======================
   // Booking Widget
+  // =======================
   'step.1': 'Detalji vožnje',
   'step.2': 'Izaberi vozilo',
   'step.3': 'Plaćanje',
@@ -451,12 +755,16 @@ const sr: Record<string, string> = {
   'err.invalidPhone': 'Unesite ispravan broj (npr. +43 123 45678).',
   'err.flightRequired': 'Broj leta je obavezan.',
 
+  // =======================
   // Vehicles
+  // =======================
   'vehicle.sedan': 'Standardna limuzina',
   'vehicle.wagon': 'Karavan',
   'vehicle.van': 'Minivan',
 
+  // =======================
   // New Fields
+  // =======================
   'label.travelWithChildren': 'Putujete sa decom?',
   'label.babySeat': 'Bebi sedište (0-13kg)',
   'label.childSeat': 'Dečije sedište (9-18kg)',
@@ -473,7 +781,9 @@ const sr: Record<string, string> = {
   'btn.saveProfile': 'Sačuvaj profil',
   'label.discountApplied': '{percent}% popust primenjen',
 
+  // =======================
   // Tips
+  // =======================
   'tip.airportPickup':
     'Preuzimanje na aerodromu: vozač vas čeka u dolascima, ispred izlaza sa kapije, sa tablom sa imenom.',
   'tip.beReady':
@@ -491,7 +801,9 @@ const sr: Record<string, string> = {
   'tip.saveAddress':
     'Možete sačuvati kućnu ili poslovnu adresu i brzo birati sačuvane lokacije.',
 
+  // =======================
   // History
+  // =======================
   'history.title': 'Moje rezervacije',
   'history.welcome': 'Dobrodošli',
   'history.empty': 'Nema rezervacija.',
@@ -544,7 +856,44 @@ const sr: Record<string, string> = {
   'toast.bookingCancelled': 'Rezervacija je otkazana',
   'toast.redirectModify': 'Preusmeravanje na formu...',
 
+  // =======================
+  // Logged-out state
+  // =======================
+  'history.loginTitle': 'Prijavite se da biste videli svoje rezervacije',
+  'history.loginDesc':
+    'Prijavite se da biste pregledali, izmenili ili otkazali svoje vožnje.',
+
+  // =======================
+  // PastBookings search
+  // =======================
+  'history.search': 'Pretraga rezervacija',
+  'btn.clear': 'Obriši',
+
+  // =======================
+  // Reminder toggle (PastBookings)
+  // =======================
+  'reminder.active': 'Podsetnik aktivan',
+  'reminder.set': 'Postavi podsetnik',
+  'reminder.on': 'Uključeno',
+  'reminder.off': 'Postavi',
+
+  // =======================
+  // Generic errors/messages used in PastBookings
+  // =======================
+  'err.loadBookings': 'Neuspešno učitavanje rezervacija',
+  'err.saveProfile': 'Neuspešno čuvanje profila',
+  'err.updateReminder': 'Greška pri ažuriranju podsetnika',
+  'err.saveRating': 'Greška pri čuvanju ocene',
+  'err.saveReview': 'Greška pri čuvanju recenzije',
+  'err.ratingRequired': 'Molimo prvo izaberite ocenu.',
+  'err.cancelBooking': 'Neuspešno otkazivanje rezervacije',
+  'err.deleteAccount':
+    'Neuspešno brisanje naloga. Prijavite se ponovo i pokušajte opet.',
+  'msg.accountDeleted': 'Vaš nalog je obrisan.',
+
+  // =======================
   // Auth
+  // =======================
   'auth.login': 'Prijava',
   'auth.register': 'Napravi nalog',
   'auth.forgot': 'Resetuj lozinku',
@@ -569,7 +918,9 @@ const sr: Record<string, string> = {
   'auth.joinCode': 'Kod kompanije (opciono)',
   'auth.joinCodePlaceholder': 'npr. TECH2025',
 
+  // =======================
   // Admin
+  // =======================
   'admin.tab.bookings': 'Dispeč',
   'admin.tab.drivers': 'Vozači',
   'admin.tab.analytics': 'Analitika',
@@ -615,16 +966,27 @@ const sr: Record<string, string> = {
   'admin.addCompany': 'Dodaj kompaniju',
   'admin.domainPlaceholder': 'npr. google.com',
 
-  // Chat
-  'chat.title': 'Transfer asistent',
+     // Chat
+  'chat.title': 'Transfer-Assistent',
   'chat.subtitle': 'Powered by Gemini AI',
-  'chat.placeholder': 'Postavite pitanje...',
+  'chat.placeholder': 'Frage stellen …',
   'chat.welcome':
-    'Zdravo! Ja sam vaš concierge za aerodromski transfer u Beču. Pitajte o vremenu putovanja, lokalnim savetima ili našim uslugama.',
+    'Hallo! Ich bin Ihr Transfer-Assistent für den Flughafen Wien. Fragen Sie mich zu Fahrzeiten, lokalen Tipps oder unseren Services.',
   'chat.offline':
-    'Trenutno sam offline. Proverite konekciju ili pokušajte kasnije.',
-  'chat.error': 'Trenutno ne mogu da obradim zahtev.',
-};
+    'Ich bin derzeit offline. Bitte Verbindung prüfen oder später erneut versuchen.',
+  
+    // Footer
+    'footer.desc':
+      'Premium izbor za aerodromske transfere u Beču i okolini (100 km). Povezujemo Austriju, Slovačku, Mađarsku i Češku.',
+    'footer.contact': 'Kontakt',
+    'footer.legal': 'Pravno',
+    'footer.privacy': 'Politika privatnosti',
+    'footer.terms': 'Uslovi korišćenja',
+    'footer.impressum': 'Impressum',
+    'footer.rights': 'Sva prava zadržana.',
+    'footer.companyName': 'VIERide Aerodromski transferi',
+
+  }
 
 export const translations: Record<LanguageCode, Record<string, string>> = {
   en,

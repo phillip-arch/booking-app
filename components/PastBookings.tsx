@@ -375,7 +375,7 @@ export const PastBookings: React.FC<PastBookingsProps> = ({ isOpen, onClose, onM
                             value={editName}
                             onChange={(e) => setEditName(e.target.value)}
                             className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none bg-white text-slate-900"
-                            placeholder="Full Name"
+                            placeholder={t('label.name')}
                         />
                      </div>
                    </div>
@@ -388,7 +388,7 @@ export const PastBookings: React.FC<PastBookingsProps> = ({ isOpen, onClose, onM
                             value={editEmail}
                             onChange={(e) => setEditEmail(e.target.value)}
                             className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none bg-white text-slate-900"
-                            placeholder="Email Address"
+                            placeholder={t('label.email')}
                         />
                      </div>
                    </div>
@@ -484,8 +484,12 @@ export const PastBookings: React.FC<PastBookingsProps> = ({ isOpen, onClose, onM
                   <div className="w-14 h-14 bg-primary-50 rounded-full flex items-center justify-center mx-auto mb-4">
                     <i className="fa-solid fa-lock text-primary-500 text-xl"></i>
                   </div>
-                  <p className="text-lg font-semibold text-slate-800">Log in to see your bookings</p>
-                  <p className="text-sm text-slate-500 mt-2">Sign in to view, modify, or cancel your rides.</p>
+                  <p className="text-lg font-semibold text-slate-800">
+                   {t('history.loginTitle')}
+                  </p>
+                  <p className="text-sm text-slate-500 ">
+                    {t('history.loginDesc')}
+                  </p>
                   <button 
                     onClick={handleLoginClick}
                     className="mt-6 px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg shadow-md shadow-primary-500/30 transition-colors"
@@ -567,7 +571,11 @@ export const PastBookings: React.FC<PastBookingsProps> = ({ isOpen, onClose, onM
                                             ? 'bg-amber-100 text-amber-700 hover:bg-amber-200' 
                                             : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
                                         }`}
-                                        title={booking.reminderSet ? "Reminder active" : "Set reminder"}
+                                        title={
+                                         booking.reminderSet
+                                           ? t('reminder.active')
+                                           : t('reminder.set')
+                                              }
                                     >
                                         <i className={`fa-solid ${booking.reminderSet ? 'fa-bell' : 'fa-bell-slash'}`}></i>
                                         {booking.reminderSet ? 'On' : 'Set'}
