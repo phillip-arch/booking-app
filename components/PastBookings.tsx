@@ -6,6 +6,7 @@ import { authService } from '../services/authService';
 import { bookingService } from '../services/bookingService';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ChangePasswordModal } from './ChangePasswordModal';
+import { supabase } from "../services/supabaseClient";
 
 interface PastBookingsProps {
   isOpen: boolean;
@@ -225,7 +226,7 @@ export const PastBookings: React.FC<PastBookingsProps> = ({ isOpen, onClose, onM
       await authService.deleteAccount(currentUser.id);
       onLogout();
       onClose();
-      alert('Your account has been deleted.');
+      alert(t('msg.accountDeleted'));      
     } catch (e) {
       setToast({ message: "Failed to delete account. Please re-login and try again.", type: 'error' });
     }
